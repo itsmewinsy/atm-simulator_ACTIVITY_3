@@ -1,0 +1,77 @@
+using System;
+
+class ATM
+{
+    static void Main()
+    {
+        Console.WriteLine("ATM Simulator by Winslett Therese");
+        
+        decimal balance = 1000.00m;
+        bool running = true;
+
+        while (running)
+        {
+            Console.WriteLine("\nMenu Options:");
+            Console.WriteLine("1: Check Balance");
+            Console.WriteLine("2: Deposit Money");
+            Console.WriteLine("3: Withdraw Money");
+            Console.WriteLine("4: Exit");
+            Console.WriteLine(" ");
+            Console.Write("Enter your choice: ");
+
+            string input = Console.ReadLine();
+            switch (input)
+            {
+                case "1":
+                    Console.WriteLine($"Your current balance is: ${balance}");
+                    break;
+
+                case "2":
+                    Console.Write("Enter amount to deposit: ");
+                    if (decimal.TryParse(Console.ReadLine(), out decimal depositAmount) && depositAmount > 0)
+                    {
+                        balance += depositAmount;
+                        Console.WriteLine($"Deposit successful! Your new balance is {balance}");
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid deposit amount. Please enter a positive number.");
+                        continue;
+                    }
+                    break;
+
+                case "3":
+                    Console.Write("Enter amount to withdraw: ");
+                    if (decimal.TryParse(Console.ReadLine(), out decimal withdrawAmount))
+                    {
+                        if (withdrawAmount <= balance)
+                        {
+                            balance -= withdrawAmount;
+                            Console.WriteLine($"You have successfully withdrawn: {withdrawAmount}");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Insufficient balance! Please enter smaller amount.");
+                            continue;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Invalid withdrawal amount. Please enter a number.");
+                        continue;
+                    }
+                    break;
+
+                case "4":
+                    running = false;
+                    break;
+
+                default:
+                    Console.WriteLine("Invalid option. Please select a valid menu option.");
+                    continue;
+            }
+        }
+
+        Console.WriteLine("Thank you for using the ATM Stimulator!");
+    }
+}
